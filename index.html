@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Repère Local Studio — Visibilité locale premium</title>
   <meta name="description" content="Repère Local Studio aide les artisans, indépendants et PME locales à mieux présenter leur activité grâce à une présence Google plus propre et des pages vitrines locales premium.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#4285f4">
+  <link rel="canonical" href="https://reperelocalstudio.fr/">
+  <link rel="icon" href="./logo3.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Repère Local Studio">
+  <meta property="og:title" content="Repère Local Studio — Visibilité locale premium">
+  <meta property="og:description" content="Présence Google plus claire, page vitrine premium et structure pensée pour la prise de contact locale.">
+  <meta property="og:url" content="https://reperelocalstudio.fr/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Repère Local Studio — Visibilité locale premium">
+  <meta name="twitter:description" content="Présence Google plus claire, page vitrine premium et structure pensée pour la prise de contact locale.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -113,6 +126,58 @@ textarea:focus-visible,
 summary:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -56px;
+  z-index: 1200;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--text);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.field-help {
+  font-size: 0.78rem;
+  color: rgba(17, 24, 39, 0.5);
+}
+
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: var(--google-red);
+  box-shadow: 0 0 0 4px rgba(234, 67, 53, 0.1);
 }
 
 #top,
@@ -259,7 +324,7 @@ summary:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 42px;
+  height: 44px;
   padding: 0 22px;
   border: 1px solid rgba(66, 133, 244, 0.35);
   border-radius: 999px;
@@ -281,7 +346,7 @@ summary:focus-visible {
 .nav-toggle {
   display: none;
   width: 42px;
-  height: 42px;
+  height: 44px;
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   flex-direction: column;
@@ -1540,27 +1605,33 @@ summary:focus-visible {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  align-items: start;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.contact-panel,
+.contact-form-panel {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow-card);
 }
 
 .contact-panel {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  padding: 52px;
-  position: sticky;
-  top: calc(var(--header-h) + 24px);
+  padding: 38px;
+  position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .contact-panel::before {
   content: '';
   position: absolute;
-  top: -60px;
-  right: -60px;
+  top: -72px;
+  right: -72px;
   width: 220px;
   height: 220px;
   border-radius: 50%;
@@ -1569,22 +1640,22 @@ summary:focus-visible {
 }
 
 .contact-panel h2 {
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  margin-top: 20px;
-  max-width: 14ch;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  margin-top: 18px;
+  max-width: 12ch;
   color: var(--text);
 }
 
 .contact-panel p {
-  margin-top: 16px;
+  margin-top: 14px;
   font-size: 0.9rem;
   color: var(--muted);
-  line-height: 1.8;
-  max-width: 44ch;
+  line-height: 1.75;
+  max-width: 46ch;
 }
 
 .contact-methods {
-  margin-top: 40px;
+  margin-top: 24px;
   display: grid;
   gap: 12px;
 }
@@ -1593,16 +1664,18 @@ summary:focus-visible {
   display: flex;
   align-items: center;
   gap: 16px;
+  min-height: 84px;
   padding: 18px 20px;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.98);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
 
 .contact-method:hover {
   background: #ffffff;
   border-color: rgba(17, 24, 39, 0.14);
+  transform: translateY(-2px);
 }
 
 .contact-method-ico {
@@ -1630,11 +1703,12 @@ summary:focus-visible {
   font-size: 0.92rem;
   font-weight: 600;
   color: var(--text);
+  overflow-wrap: anywhere;
 }
 
 .contact-includes {
-  margin-top: 36px;
-  padding-top: 32px;
+  margin-top: auto;
+  padding-top: 24px;
   border-top: 1px solid var(--line);
 }
 
@@ -1644,7 +1718,7 @@ summary:focus-visible {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: rgba(17, 24, 39, 0.45);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .contact-includes-list {
@@ -1655,10 +1729,15 @@ summary:focus-visible {
 
 .contact-includes-list li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
-  font-size: 0.88rem;
-  color: rgba(17, 24, 39, 0.75);
+  padding: 12px 14px;
+  background: rgba(66, 133, 244, 0.04);
+  border: 1px solid rgba(66, 133, 244, 0.1);
+  border-radius: 16px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: rgba(17, 24, 39, 0.76);
 }
 
 .contact-includes-list li::before {
@@ -1675,41 +1754,43 @@ summary:focus-visible {
   font-weight: 700;
   color: var(--primary);
   flex-shrink: 0;
+  margin-top: 1px;
 }
 
 .contact-form-panel {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  padding: 44px;
+  padding: 38px;
   box-shadow: var(--shadow-form);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .contact-form-panel h3 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
+  font-size: 1.85rem;
   font-weight: 600;
   color: var(--text);
   letter-spacing: -0.02em;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .contact-form-panel .form-lead {
-  font-size: 0.85rem;
+  font-size: 0.87rem;
   color: var(--muted);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  max-width: 52ch;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
 .field {
   display: grid;
   gap: 7px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .field:first-child {
@@ -1731,7 +1812,7 @@ summary:focus-visible {
   border: 1px solid var(--line-strong);
   border-radius: var(--r-md);
   color: var(--text);
-  padding: 15px 18px;
+  padding: 14px 16px;
   font-size: 0.92rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
   outline: none;
@@ -1739,11 +1820,11 @@ summary:focus-visible {
 }
 
 .field input {
-  height: 52px;
+  height: 50px;
 }
 
 .field textarea {
-  min-height: 126px;
+  min-height: 118px;
   resize: vertical;
 }
 
@@ -1759,13 +1840,25 @@ summary:focus-visible {
   box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.1);
 }
 
+.field-help {
+  font-size: 0.76rem;
+  color: rgba(17, 24, 39, 0.45);
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .form-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -1780,12 +1873,12 @@ summary:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  height: 56px;
-  padding: 0 32px;
+  min-height: 54px;
+  padding: 0 30px;
   background: var(--primary);
   color: #ffffff;
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -1974,11 +2067,8 @@ summary:focus-visible {
   }
 
   .contact-grid {
+    max-width: 880px;
     grid-template-columns: 1fr;
-  }
-
-  .contact-panel {
-    position: static;
   }
 }
 
@@ -2116,6 +2206,20 @@ summary:focus-visible {
     max-width: 360px;
   }
 
+  .contact-methods,
+  .contact-includes-list {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    gap: 18px;
+  }
+
+  .contact-methods,
+  .contact-includes-list {
+    grid-template-columns: 1fr;
+  }
+
   .contact-panel,
   .contact-form-panel {
     padding: 36px 28px;
@@ -2181,6 +2285,22 @@ summary:focus-visible {
   }
 }
 
+@media (hover: none) {
+  .svc-item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .svc-item::before {
+    display: none;
+  }
+
+  .svc-chips {
+    max-height: none;
+    margin-top: 16px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -2199,8 +2319,26 @@ summary:focus-visible {
   }
 }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Repère Local Studio",
+    "url": "https://reperelocalstudio.fr/",
+    "telephone": "+33608151971",
+    "email": "contact@reperelocalstudio.fr",
+    "areaServed": "France",
+    "serviceType": [
+      "Optimisation Google Business Profile",
+      "Création de pages vitrines locales",
+      "Structuration de présence locale"
+    ]
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Aller au contenu</a>
 
   <div id="progress" aria-hidden="true"></div>
 
@@ -2223,7 +2361,7 @@ summary:focus-visible {
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
 
     <section class="hero">
       <div class="hero-bg"></div>
@@ -2308,18 +2446,18 @@ summary:focus-visible {
               </div>
 
               <div class="hv-card hv-stats">
-                <div class="hv-stats-label">Impact moyen</div>
+                <div class="hv-stats-label">Ce qui change</div>
                 <div class="hv-stats-row">
-                  <span class="hv-stats-val green">+65%</span>
-                  <span class="hv-stats-desc">d'appels entrants</span>
+                  <span class="hv-stats-val green">1</span>
+                  <span class="hv-stats-desc">message plus clair</span>
                 </div>
                 <div class="hv-stats-row">
-                  <span class="hv-stats-val blue">×4</span>
-                  <span class="hv-stats-desc">de vues sur la fiche</span>
+                  <span class="hv-stats-val blue">3</span>
+                  <span class="hv-stats-desc">leviers essentiels</span>
                 </div>
                 <div class="hv-stats-row">
-                  <span class="hv-stats-val gold">+80%</span>
-                  <span class="hv-stats-desc">de contacts directs</span>
+                  <span class="hv-stats-val gold">100%</span>
+                  <span class="hv-stats-desc">pensé mobile</span>
                 </div>
               </div>
             </div>
@@ -2489,14 +2627,14 @@ summary:focus-visible {
       <div class="wrap">
         <div class="stats-grid">
           <div class="stat-item reveal">
-            <span class="stat-val"><em>+65</em>%</span>
-            <div class="stat-label">d'appels entrants</div>
-            <div class="stat-sub">Impact moyen après optimisation Google</div>
+            <span class="stat-val"><em>1</em></span>
+            <div class="stat-label">message clair</div>
+            <div class="stat-sub">Votre positionnement est compris plus vite</div>
           </div>
           <div class="stat-item reveal reveal-delay-2">
-            <span class="stat-val">×<em>4</em></span>
-            <div class="stat-label">vues sur la fiche</div>
-            <div class="stat-sub">Gain de visibilité locale immédiate</div>
+            <span class="stat-val"><em>3</em></span>
+            <div class="stat-label">leviers essentiels</div>
+            <div class="stat-sub">Visibilité, confiance et prise de contact</div>
           </div>
           <div class="stat-item reveal reveal-delay-4">
             <span class="stat-val"><em>100</em>%</span>
@@ -2573,7 +2711,7 @@ summary:focus-visible {
 
             <details class="faq-item">
               <summary>Est-ce que le site est pensé pour le mobile ? <span class="faq-icon">+</span></summary>
-              <div class="faq-body">Oui, complètement. La structure a été pensée en mobile-first avec une hiérarchie lisible, des espaces cohérents et un parcours simple — sans débordement horizontal ni friction inutile. Plus de 70% du trafic local vient du smartphone.</div>
+              <div class="faq-body">Oui, complètement. La structure a été pensée en mobile-first avec une hiérarchie lisible, des espaces cohérents et un parcours simple — sans débordement horizontal ni friction inutile. Une grande partie du trafic local se joue aujourd'hui sur smartphone.</div>
             </details>
 
             <details class="faq-item">
@@ -2592,7 +2730,7 @@ summary:focus-visible {
           <div class="contact-panel reveal">
             <span class="label-tag">Contact</span>
             <h2 class="display">Parlons de votre visibilité locale.</h2>
-            <p>Décrivez brièvement votre activité, votre zone et ce que vous souhaitez améliorer. On vous répond sous 24h ouvrées.</p>
+            <p>Expliquez brièvement votre activité, votre zone et votre objectif. On garde une section compacte, élégante et directe, sans rallonger inutilement la fin de page.</p>
 
             <div class="contact-methods">
               <a class="contact-method" href="tel:+33608151971">
@@ -2602,11 +2740,11 @@ summary:focus-visible {
                   <div class="contact-method-val">06 08 15 19 71</div>
                 </div>
               </a>
-              <a class="contact-method" href="mailto:slmalik1404@gmail.com">
+              <a class="contact-method" href="mailto:contact@reperelocalstudio.fr">
                 <div class="contact-method-ico">✉️</div>
                 <div>
                   <div class="contact-method-type">Email</div>
-                  <div class="contact-method-val">slmalik1404@gmail.com</div>
+                  <div class="contact-method-val">contact@reperelocalstudio.fr</div>
                 </div>
               </a>
             </div>
@@ -2614,18 +2752,29 @@ summary:focus-visible {
             <div class="contact-includes">
               <div class="contact-includes-title">Ce qu'on peut faire ensemble</div>
               <ul class="contact-includes-list">
-                <li>Optimisation Google Business Profile</li>
-                <li>Création de page vitrine locale</li>
-                <li>Clarification de votre positionnement</li>
+                <li>Optimiser votre fiche Google Business Profile</li>
+                <li>Créer une page vitrine locale claire et rassurante</li>
+                <li>Clarifier votre message pour générer plus de prises de contact</li>
               </ul>
             </div>
           </div>
 
           <div class="contact-form-panel reveal reveal-delay-2">
             <h3>Envoyer un message</h3>
-            <p class="form-lead">Tous les champs sont requis pour vous répondre au mieux.</p>
+            <p class="form-lead">Le formulaire reste volontairement court. Si vous voulez être rappelé, ajoutez simplement votre numéro dans le message.</p>
 
-            <form id="contactForm" data-contact-email="slmalik1404@gmail.com" novalidate>
+            <form
+              id="contactForm"
+              data-contact-email="contact@reperelocalstudio.fr"
+              data-form-endpoint=""
+              novalidate
+              aria-describedby="formNote formFeedback"
+            >
+              <div class="hp-field" aria-hidden="true">
+                <label for="f-company-website">Ne pas remplir ce champ</label>
+                <input type="text" id="f-company-website" name="company-website" tabindex="-1" autocomplete="off">
+              </div>
+
               <div class="form-row">
                 <div class="field">
                   <label for="f-name">Nom complet</label>
@@ -2638,16 +2787,12 @@ summary:focus-visible {
               </div>
 
               <div class="field">
-                <label for="f-phone">Téléphone</label>
-                <input type="tel" id="f-phone" name="phone" autocomplete="tel" placeholder="06 00 00 00 00" required>
-              </div>
-
-              <div class="field">
                 <label for="f-msg">Votre besoin</label>
-                <textarea id="f-msg" name="message" rows="5" placeholder="Décrivez votre activité, votre zone et ce que vous souhaitez améliorer…" required></textarea>
+                <textarea id="f-msg" name="message" rows="5" minlength="20" placeholder="Décrivez votre activité, votre zone, votre besoin et laissez votre téléphone ici si vous souhaitez être rappelé." required></textarea>
+                <span class="field-help">Quelques lignes suffisent, mais soyez précis pour obtenir une réponse utile.</span>
               </div>
 
-              <p class="form-feedback" id="formFeedback" aria-live="polite"></p>
+              <p class="form-feedback" id="formFeedback" aria-live="polite" role="status"></p>
 
               <div class="form-bottom">
                 <button class="btn-submit" type="submit">
@@ -2656,7 +2801,7 @@ summary:focus-visible {
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
-                <span class="form-note">Réponse garantie sous 24h ouvrées.</span>
+                <span class="form-note" id="formNote">Réponse sous 24h ouvrées. Vos informations restent confidentielles.</span>
               </div>
             </form>
           </div>
@@ -2698,6 +2843,7 @@ summary:focus-visible {
     }
 
     window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
     update();
   }());
 
@@ -2735,12 +2881,7 @@ summary:focus-visible {
       });
     }
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      showAll();
-      return;
-    }
-
-    if (!('IntersectionObserver' in window)) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
       showAll();
       return;
     }
@@ -2770,13 +2911,15 @@ summary:focus-visible {
   (function () {
     var toggle = document.getElementById('navToggle');
     var nav = document.getElementById('siteNav');
-    if (!toggle || !nav) return;
+    var body = document.body;
+    if (!toggle || !nav || !body) return;
 
     function open() {
       nav.classList.add('is-open');
       toggle.classList.add('is-active');
       toggle.setAttribute('aria-expanded', 'true');
       toggle.setAttribute('aria-label', 'Fermer le menu');
+      body.classList.add('menu-open');
     }
 
     function close() {
@@ -2784,6 +2927,7 @@ summary:focus-visible {
       toggle.classList.remove('is-active');
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Ouvrir le menu');
+      body.classList.remove('menu-open');
     }
 
     toggle.addEventListener('click', function () {
@@ -2822,50 +2966,142 @@ summary:focus-visible {
     var feedback = document.getElementById('formFeedback');
     if (!form || !feedback) return;
 
+    var submitBtn = form.querySelector('.btn-submit');
+    var fields = {
+      name: form.elements.name,
+      email: form.elements.email,
+      message: form.elements.message,
+      honey: form.elements['company-website']
+    };
+
     function setFeedback(message, isSuccess) {
       feedback.textContent = message;
       feedback.classList.toggle('is-success', Boolean(isSuccess));
     }
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+    function clearState(field) {
+      if (!field) return;
+      field.removeAttribute('aria-invalid');
+    }
 
-      var targetEmail = (form.getAttribute('data-contact-email') || '').trim();
-      var name = form.elements.name ? form.elements.name.value.trim() : '';
-      var mail = form.elements.email ? form.elements.email.value.trim() : '';
-      var phone = form.elements.phone ? form.elements.phone.value.trim() : '';
-      var message = form.elements.message ? form.elements.message.value.trim() : '';
+    function invalidate(field, message) {
+      if (!field) return;
+      field.setAttribute('aria-invalid', 'true');
+      if (message) setFeedback(message, false);
+    }
 
-      if (!targetEmail) {
-        setFeedback('Adresse de réception indisponible. Merci de réessayer plus tard.', false);
-        return;
-      }
+    function resetValidationState() {
+      clearState(fields.name);
+      clearState(fields.email);
+      clearState(fields.message);
+    }
 
-      if (!name || !mail || !phone || !message) {
-        setFeedback('Merci de remplir tous les champs.', false);
-        return;
-      }
-
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
-        setFeedback('Merci de saisir une adresse email valide.', false);
-        return;
-      }
-
-      var body = [
-        'Nom : ' + name,
-        'Email : ' + mail,
-        'Téléphone : ' + phone,
+    function buildMailtoBody() {
+      return [
+        'Nom : ' + fields.name.value.trim(),
+        'Email : ' + fields.email.value.trim(),
         '',
         'Message :',
-        message
+        fields.message.value.trim()
       ].join('\n');
+    }
 
-      setFeedback('Ouverture de votre messagerie…', true);
+    function validate() {
+      resetValidationState();
 
-      window.location.href =
-        'mailto:' + targetEmail +
-        '?subject=' + encodeURIComponent('Nouvelle demande — Repère Local Studio') +
-        '&body=' + encodeURIComponent(body);
+      var name = fields.name ? fields.name.value.trim() : '';
+      var email = fields.email ? fields.email.value.trim() : '';
+      var message = fields.message ? fields.message.value.trim() : '';
+
+      if (fields.honey && fields.honey.value.trim() !== '') {
+        setFeedback('Envoi impossible. Merci de réessayer.', false);
+        return false;
+      }
+
+      if (name.length < 2) {
+        invalidate(fields.name, 'Merci de saisir votre nom complet.');
+        return false;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        invalidate(fields.email, 'Merci de saisir une adresse email valide.');
+        return false;
+      }
+
+
+      if (message.length < 20) {
+        invalidate(fields.message, 'Merci de préciser un peu plus votre besoin (20 caractères minimum).');
+        return false;
+      }
+
+      return true;
+    }
+
+    function toggleSubmitting(isSubmitting) {
+      if (!submitBtn) return;
+      submitBtn.disabled = isSubmitting;
+      submitBtn.setAttribute('aria-busy', isSubmitting ? 'true' : 'false');
+      submitBtn.style.opacity = isSubmitting ? '0.7' : '1';
+      submitBtn.style.pointerEvents = isSubmitting ? 'none' : 'auto';
+    }
+
+    async function sendToEndpoint(endpoint) {
+      var formData = new FormData(form);
+      formData.delete('company-website');
+
+      var response = await fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('submit_failed');
+      }
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      setFeedback('', false);
+
+      if (!validate()) return;
+
+      var endpoint = (form.getAttribute('data-form-endpoint') || '').trim();
+      var targetEmail = (form.getAttribute('data-contact-email') || '').trim();
+
+      try {
+        toggleSubmitting(true);
+
+        if (endpoint) {
+          setFeedback('Envoi en cours…', true);
+          await sendToEndpoint(endpoint);
+          form.reset();
+          resetValidationState();
+          setFeedback('Merci, votre demande a bien été envoyée.', true);
+          return;
+        }
+
+        if (!targetEmail) {
+          throw new Error('missing_target');
+        }
+
+        setFeedback('Ouverture de votre messagerie…', true);
+
+        window.location.href =
+          'mailto:' + targetEmail +
+          '?subject=' + encodeURIComponent('Nouvelle demande — Repère Local Studio') +
+          '&body=' + encodeURIComponent(buildMailtoBody());
+      } catch (error) {
+        if (error && error.message === 'missing_target') {
+          setFeedback('Aucune destination de formulaire n’est configurée. Ajoutez un endpoint ou une adresse email de réception.', false);
+        } else {
+          setFeedback('L’envoi a échoué. Vérifiez votre endpoint de formulaire ou réessayez plus tard.', false);
+        }
+      } finally {
+        toggleSubmitting(false);
+      }
     });
   }());
   </script>
