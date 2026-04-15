@@ -2820,11 +2820,16 @@ body.menu-open {
 
             <form
               id="contactForm"
-              data-contact-email="contact@reperelocalstudio.fr"
-              data-form-endpoint=""
+              action="https://formsubmit.co/contact@reperelocalstudio.fr"
+              method="POST"
               novalidate
               aria-describedby="formNote formFeedback"
             >
+              <input type="hidden" name="_subject" value="Nouvelle demande — Repère Local Studio">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_next" id="formNext" value="">
+              <input type="hidden" name="_blacklist" value="http://,https://,viagra,casino,crypto,loan">
+              <input type="hidden" name="_autoresponse" value="Merci, votre demande a bien été reçue par Repère Local Studio. Nous revenons vers vous sous 24h ouvrées.">
               <div class="hp-field" aria-hidden="true">
                 <label for="f-company-website">Ne pas remplir ce champ</label>
                 <input type="text" id="f-company-website" name="company-website" tabindex="-1" autocomplete="off">
@@ -3019,6 +3024,7 @@ body.menu-open {
   (function () {
     var form = document.getElementById('contactForm');
     var feedback = document.getElementById('formFeedback');
+    var nextField = document.getElementById('formNext');
     if (!form || !feedback) return;
 
     var submitBtn = form.querySelector('.btn-submit');
@@ -3051,16 +3057,6 @@ body.menu-open {
       clearState(fields.message);
     }
 
-    function buildMailtoBody() {
-      return [
-        'Nom : ' + fields.name.value.trim(),
-        'Email : ' + fields.email.value.trim(),
-        '',
-        'Message :',
-        fields.message.value.trim()
-      ].join('\n');
-    }
-
     function validate() {
       resetValidationState();
 
@@ -3083,7 +3079,6 @@ body.menu-open {
         return false;
       }
 
-
       if (message.length < 20) {
         invalidate(fields.message, 'Merci de préciser un peu plus votre besoin (20 caractères minimum).');
         return false;
@@ -3100,63 +3095,38 @@ body.menu-open {
       submitBtn.style.pointerEvents = isSubmitting ? 'none' : 'auto';
     }
 
-    async function sendToEndpoint(endpoint) {
-      var formData = new FormData(form);
-      formData.delete('company-website');
+    function buildReturnUrl() {
+      var url = new URL(window.location.href);
+      url.searchParams.set('sent', '1');
+      url.hash = 'contact';
+      return url.toString();
+    }
 
-      var response = await fetch(endpoint, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
+    if (nextField) {
+      nextField.value = buildReturnUrl();
+    }
 
-      if (!response.ok) {
-        throw new Error('submit_failed');
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('sent') === '1') {
+      setFeedback('Merci, votre demande a bien été envoyée.', true);
+      form.reset();
+      resetValidationState();
+      if (window.history && window.history.replaceState) {
+        var cleanUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, cleanUrl);
       }
     }
 
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
+    form.addEventListener('submit', function (e) {
       setFeedback('', false);
 
-      if (!validate()) return;
-
-      var endpoint = (form.getAttribute('data-form-endpoint') || '').trim();
-      var targetEmail = (form.getAttribute('data-contact-email') || '').trim();
-
-      try {
-        toggleSubmitting(true);
-
-        if (endpoint) {
-          setFeedback('Envoi en cours…', true);
-          await sendToEndpoint(endpoint);
-          form.reset();
-          resetValidationState();
-          setFeedback('Merci, votre demande a bien été envoyée.', true);
-          return;
-        }
-
-        if (!targetEmail) {
-          throw new Error('missing_target');
-        }
-
-        setFeedback('Ouverture de votre messagerie…', true);
-
-        window.location.href =
-          'mailto:' + targetEmail +
-          '?subject=' + encodeURIComponent('Nouvelle demande — Repère Local Studio') +
-          '&body=' + encodeURIComponent(buildMailtoBody());
-      } catch (error) {
-        if (error && error.message === 'missing_target') {
-          setFeedback('Aucune destination de formulaire n’est configurée. Ajoutez un endpoint ou une adresse email de réception.', false);
-        } else {
-          setFeedback('L’envoi a échoué. Vérifiez votre endpoint de formulaire ou réessayez plus tard.', false);
-        }
-      } finally {
-        toggleSubmitting(false);
+      if (!validate()) {
+        e.preventDefault();
+        return;
       }
+
+      toggleSubmitting(true);
+      setFeedback('Envoi en cours…', true);
     });
   }());
   </script>
