@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://www.reperelocalstudio.fr/sitemap.xml
